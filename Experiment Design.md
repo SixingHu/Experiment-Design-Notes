@@ -148,13 +148,18 @@ $$
         - Different from our stationary treatment effect, Qin and Russo (2022) investigate bandit experiments where a potentially nonstationary sequence of contexts influences arms' performance.
 
 3. Inference in MABs. 
-    - The work from Villar et al. (2015) is a pioneer work in revealing that MAB algorithms offer significant advantages in assigning more patients to better treatments, and severe limitations on resulting statistical power from an empirical perspective. We statistically describe and quantify such a issue. There is a substantial literature on post-experiment inference from logged adaptively collected data (see, e.g., Zhang et al. 2020, Zhang et al. 2021, Bibaut et al. 2021). One of the central tasks along this line is the evaluation of a new policy given historic/observational data which cannot be seen as i.i.d. samples (see, e.g., Dudík et al. 2011, Dudík et al. 2014, Swaminathan and Joachims 2015, Li et al. 2015, Wang et al. 2017, Kallus and Zhou 2018, Farajtabar et al. 2018, Athey and Wager 2021, Zhan et al. 2021, Zhou et al. 2022, Hadad et al. 2021, Chen et al. 2022). Bareinboim et al. (2015) study the issue of unobserved confounding in MAB, and consider how the observational data can be used to empower TS algorithms. Dimakopoulou et al. (2021) focus on conducting inference on the true mean of each arm based on data collected by stochastic MAB so far at each step. They incorporate the adaptively weighted doubly robust estimator into TS algorithms, which is proved to achieve the optimal regret and has outstanding empirical performances. Dimakopoulou et al. (2017) and Dimakopoulou et al. (2019) consider the case where context exists and estimate the conditional expectation of each action's reward under different contexts.
+    - One of the central tasks along this line is the evaluation of a new policy given historic/observational data which cannot be seen as i.i.d. samples. 
+    - Bareinboim et al. (2015) study the issue of unobserved confounding in MAB, and consider how the observational data can be used to empower TS algorithms. 
+    - Dimakopoulou et al. (2021) focus on conducting inference on the true mean of each arm based on data collected by stochastic MAB so far at each step. 
+    - They incorporate the adaptively weighted doubly robust estimator into TS algorithms, which is proved to achieve the optimal regret and has outstanding empirical performances. 
+    - Dimakopoulou et al. (2017) and Dimakopoulou et al. (2019) consider the case where context exists and estimate the conditional expectation of each action's reward under different contexts.
 
-Finally, we remark that the full version of this paper (containing additional theoretical results, computational experiments, and missing proofs) is available at https:// ssrn. com/abstract $=4224969$.
 
 ## 2 MAB Experimental Design for $K=2$
 
-In this section, we focus on $K=2$ to illustrate our ideas. We first establish the crucial lower bound and the sufficient condition for the Pareto optimality. Then, we propose a series of Pareto optimal designs and show the necessity of the condition based on the constructed Pareto optimal solutions. For brevity, we adopt the $\Delta$ instead of $\Delta^{(1,2)}$, since there is no ambiguity when $K=2$.
+We focus on $K=2$ to illustrate our ideas. 
+- We first establish the crucial lower bound and the sufficient condition for the Pareto optimality. 
+- Then, we propose a series of Pareto optimal designs and show the necessity of the condition based on the constructed Pareto optimal solutions. - For brevity, we adopt the $\Delta$ instead of $\Delta^{(1,2)}$, since there is no ambiguity when $K=2$.
 
 ### 2.1 A Lower Bound and A Sufficient Condition
 
