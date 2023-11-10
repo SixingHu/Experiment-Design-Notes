@@ -13,7 +13,11 @@ The minimax optimal regret of stochastic MAB has been well understood to be $\wi
 
 
 
-Crucial challenges arise. 
+
+<details>
+<summary><b> Crucial challenges </b></summary>
+
+
 - MAB algorithms collect data adaptively and consequently, it is not appropriate to consider the collected data as i.i.d. MAB algorithms are effective in learning the optimal online decision-making policy, but lack statistical power. 
 
 - In contrast, some existing well-established ATE estimation methods are recognized for their strong statistical power, but will incur significant regrets. 
@@ -23,7 +27,12 @@ Crucial challenges arise.
 
     - In order to describe such a trade-off, we introduce the term "Pareto optimality" to characterize the circumstance where neither regret nor estimating error of ATE can be made better off without making the other worse off. 
 
+</details>
+
 ### 1.1 Preliminaries
+<details>
+<summary><b> Basic Setting </b></summary>
+
 - $\mathcal{A}$ of arms, $a \in \mathcal{A}$ with $|\mathcal{A}|=K$. 
 - $n$ is the total number of experimental units (or the time horizon). 
 - At each time $t$, the environment generates a reward $r_{t}(a)$. 
@@ -49,6 +58,12 @@ Crucial challenges arise.
     - measure the quality of the estimation
 - $\hat{\Delta}:=\{\hat{\Delta}(i, j)\}_{i<j \leq K}$: all the estimators on the gap between any two arms
 - A design of an MAB experiment can then be represented by an admissible pair $(\pi, \hat{\Delta})$. 
+</details>
+
+
+<details>
+<summary><b> minimax multi-objective optimization problem </b></summary>
+
 - The optimal design of MAB experiments in this paper is solving the following minimax multi-objective optimization problem:
 
 $$
@@ -62,6 +77,11 @@ $$
 
 - start from the inner maximization over all $\nu \in \mathcal{E}_{0}$ 
     - Intuitively, under a given $(\pi, \hat{\Delta})$, the pairs $\left(\mathcal{R}_{\nu}, \max _{i<j \leq K} e_{\nu}\right)$ for all $\nu \in \mathcal{E}_{0}$ can constitute an accessible region, and the front of the accessible region can be defined to be the optimal values of the inner maximum problem (see, Figure 1).  
+</details>
+
+
+<details>
+<summary><b> Front </b></summary>
 
 > Definition 1 (Front). The front for $(\pi, \hat{\Delta})$, denoted by $\mathcal{F}(\pi, \hat{\Delta})$, consists of all pairs of $(R, e)$ satisfying: 
 > - $(i) \exists \nu \in$ $\mathcal{E}_{0},\left(\mathcal{R}_{\nu}(n, \pi), \max _{i<j \leq K} e_{\nu}\left(n, \hat{\Delta}^{(i, j)}\right)\right)=(R, e)$; 
@@ -78,6 +98,12 @@ $$
     - Thus the front for RCTs is at the point $\left(n, n^{-\frac{1}{2}}\right)$ 
     - The worst-case regret of any policy is no smaller than $\log (n)$, and thus any accessible region will inevitably have some parts on or above the $\log (n)$ line.
 
+</details>
+
+
+
+<details>
+<summary><b> Pareto dominance </b></summary>
 
 
 > Definition 2 (Pareto dominance). A feasible solution $\left(\pi_{1}, \hat{\Delta}_{1}\right)$ Pareto dominates another solution $\left(\pi_{2}, \hat{\Delta}_{2}\right)$ 
@@ -89,13 +115,23 @@ The definition formally describes that $\left(\pi_{1}, \hat{\Delta}_{1}\right)$ 
 ![](https://cdn.mathpix.com/cropped/2023_11_09_dcce4180771ed0085af4g-03.jpg?height=290&width=832&top_left_y=2181&top_left_x=194)
 - $\left(\pi_{b}, \hat{\Delta}_{b}\right)$ Pareto dominates $\left(\pi_{a}, \hat{\Delta}_{a}\right)$, and $\left(\pi_{c}, \hat{\Delta}_{c}\right)$ can neither Pareto dominate nor be Pareto dominated by $\left(\pi_{a}, \hat{\Delta}_{a}\right)$ or $\left(\pi_{b}, \hat{\Delta}_{b}\right)$. 
 
+</details>
+
+<details>
+<summary><b> Pareto Optimality </b></summary>
+
 > Definition 3 (Pareto Optimality). An admissible pair of $\left(\pi^{*}, \hat{\Delta}^{*}\right)$ is Pareto optimal in terms of the dependence on $n$, if it is not Pareto dominated by any other solution. Pareto frontier denoted as $\mathcal{P}$ is the envelop of the fronts of all the Pareto optimal solutions.
 
 - How to solve the minimax multi-objective optimization problem to get the Pareto optimal solutions. 
 - Moreover, $\pi$ and $\hat{\Delta}$ have the measurability constraints and are highly correlated through the history $\mathcal{H}_{t}$, which are hard to explicitly integrate into the optimization problem and endow the feasible region with complicated structures. 
 - How to obtain the optimal Pareto optimal solutions given different levels of trade-off in these two objectives.
+</details>
+
+</details>
+
 
 ### 1.2 Contributions and Main Results
+<details><summary><b> sufficient and necessary condition for the Pareto optimal </b></summary>
 
 - First, we find a sufficient and necessary condition for the Pareto optimal solutions of the minimax multi-objective optimization problem. Specifically, an admissible pair $\left(\pi^{*}, \hat{\Delta}^{*}\right)$ is Pareto optimal if and only if
 
@@ -113,6 +149,10 @@ $$
     - Particularly, since UCB/TS algorithms have the regret upper bound of $\mathcal{O}(\log n)$, then any ATE estimator based on the UCB/TS algorithm cannot avoid an error of $\Omega\left(\frac{1}{\sqrt{\log n}}\right)$ in the worst case. 
     - This explicitly shows the lack of statistical power of UCB/TS algorithms on ATE inference. 
 - - On the other hand, we also show that the Pareto frontier is the curve that satisfies $\left(\max _{i<j \leq K} e_{\nu}\left(n, \hat{\Delta}^{(i, j)}\right)\right) \sqrt{\mathcal{R}_{\nu}(n, \pi)}=\widetilde{\Theta}(1)$.
+</details>
+
+<details>
+<summary><b> efficient Pareto optimal algorithm </b></summary>
 
 - Second, we propose an efficient Pareto optimal algorithm for stochastic MAB experiments which can adapt to different levels of trade-off between the two objectives. 
     - Specifically, we combine the well-known EXP3 algorithm (see, e.g., Auer et al. 2002a, Seldin et al. 2013) 
@@ -120,40 +160,49 @@ $$
     - For any given $\alpha \in[0,1]$ as input, we prove that the regret of our algorithm is $\widetilde{\mathcal{O}}\left(n^{1-\alpha}\right)$ and the estimation error of ATE is $\widetilde{\mathcal{O}}\left(\frac{1}{\sqrt{t^{1-\alpha}}}\right)$ for all $t \leq n$, showing its Pareto optimality. 
     - Note that $\alpha$ balances the two objectives. If $\alpha$ is large, the practitioners emphasize the control of regret. Small $\alpha$ will lead to a more accurate ATE estimation. 
     - Technically, a common practice when using the EXP3 algorithm is to estimate the expected rewards of each arm with inverse propensity weighted (IPW) estimators, which imposes the challenge on careful variance control.
-
+</details>
 
 ### 1.3 Related Work
+<details>
+<summary><b>1. Learning Efficiency in MABs.</b></summary>
 
-1. Learning Efficiency in MABs. 
-    - A main body of literature in MABs has focused on the online learning efficiency, i.e., minimizing regret.
-        - Two representative classes of algorithms that can provide optimal regret bounds, i.e., $\Theta(\log n)$ regret bounds, are UCB-based algorithms and TS-based algorithms. 
-        - Both UCB/TS algorithms have been extended to the setting where contextual information of actions exists. 
-        - Fan and Glynn (2021) and Simchi-Levi et al. (2022) reveal that efficiency-optimized bandit algorithms may suffer from serious heavy-tailed risk. 
-        - In this paper, our design is based on the idea of EXP3, which was initially designed for adversarial MABs Auer et al. (2002b). 
-            - Recently, it has gradually gained its own popularity in the stochastic setting and the mixed stochastic-adversarial setting. 
-            - The version of Bernstein's inequality we used is inspired by Seldin et al. (2013).    
-        - These mentioned works only focus on minimizing the regret. 
-    - Another growing body of MAB literature is aiming at identifying the best arm.
-        - Zhong et al. (2021) carefully study the trade-off between regret minimization and best-arm identification, which is different from our objective. 
-        - An emerging field is the multitasking bandit, where minimizing regret is not the only objective. 
-        - Erraqabi et al. (2017) also want to balance the trade-off between regret and estimation error. They redefine a new reward function based on the observed rewards and the error bounds. By such a new reward to guide online decision-making, they formulate the problem into a single objective optimization, integrating the two objectives into one. In this way, they do not explicitly capture the trade-off as we do, and thus cannot describe the optimality of their design.
+- A main body of literature in MABs has focused on the online learning efficiency, i.e., minimizing regret.
+    - Two representative classes of algorithms that can provide optimal regret bounds, i.e., $\Theta(\log n)$ regret bounds, are UCB-based algorithms and TS-based algorithms. 
+    - Both UCB/TS algorithms have been extended to the setting where contextual information of actions exists. 
+    - Fan and Glynn (2021) and Simchi-Levi et al. (2022) reveal that efficiency-optimized bandit algorithms may suffer from serious heavy-tailed risk. 
+    - In this paper, our design is based on the idea of EXP3, which was initially designed for adversarial MABs Auer et al. (2002b). 
+        - Recently, it has gradually gained its own popularity in the stochastic setting and the mixed stochastic-adversarial setting. 
+        - The version of Bernstein's inequality we used is inspired by Seldin et al. (2013).    
+    - These mentioned works only focus on minimizing the regret. 
+- Another growing body of MAB literature is aiming at identifying the best arm.
+    - Zhong et al. (2021) carefully study the trade-off between regret minimization and best-arm identification, which is different from our objective. 
+    - An emerging field is the multitasking bandit, where minimizing regret is not the only objective. 
+    - Erraqabi et al. (2017) also want to balance the trade-off between regret and estimation error. They redefine a new reward function based on the observed rewards and the error bounds. By such a new reward to guide online decision-making, they formulate the problem into a single objective optimization, integrating the two objectives into one. In this way, they do not explicitly capture the trade-off as we do, and thus cannot describe the optimality of their design.
+</details>
 
-2. Adaptive experimental design. 
-    - Experimental design is becoming more and more popular in operations research, econometrics, and statistics.
-        - MAB itself can also be seen as a type of adaptive experimental design, but here we focus on the designs different from traditional MAB. 
-        - Kato et al. (2020) investigate adaptive experiments for ATE when contexts can be observed. 
-        - Glynn et al. (2020) propose a theoretical model to study optimal experimental design when temporal interference exists by transforming it into to a Markov decision problem. 
-        - Adusumilli (2021) investigates the asymptotic Bayes and minimax risk for bandit experiments. 
-        - Farias et al. (2022a) combine synthetic control and MAB to study the settings where experimental units are coarse due to interference or other concerns. 
-        - Different from our stationary treatment effect, Qin and Russo (2022) investigate bandit experiments where a potentially nonstationary sequence of contexts influences arms' performance.
+ 
+<details>
+<summary><b>2. Adaptive experimental design. </b></summary>
 
-3. Inference in MABs. 
-    - One of the central tasks along this line is the evaluation of a new policy given historic/observational data which cannot be seen as i.i.d. samples. 
-    - Bareinboim et al. (2015) study the issue of unobserved confounding in MAB, and consider how the observational data can be used to empower TS algorithms. 
-    - Dimakopoulou et al. (2021) focus on conducting inference on the true mean of each arm based on data collected by stochastic MAB so far at each step. 
-    - They incorporate the adaptively weighted doubly robust estimator into TS algorithms, which is proved to achieve the optimal regret and has outstanding empirical performances. 
-    - Dimakopoulou et al. (2017) and Dimakopoulou et al. (2019) consider the case where context exists and estimate the conditional expectation of each action's reward under different contexts.
+- Experimental design is becoming more and more popular in operations research, econometrics, and statistics.
+    - MAB itself can also be seen as a type of adaptive experimental design, but here we focus on the designs different from traditional MAB. 
+    - Kato et al. (2020) investigate adaptive experiments for ATE when contexts can be observed. 
+    - Glynn et al. (2020) propose a theoretical model to study optimal experimental design when temporal interference exists by transforming it into to a Markov decision problem. 
+    - Adusumilli (2021) investigates the asymptotic Bayes and minimax risk for bandit experiments. 
+    - Farias et al. (2022a) combine synthetic control and MAB to study the settings where experimental units are coarse due to interference or other concerns. 
+    - Different from our stationary treatment effect, Qin and Russo (2022) investigate bandit experiments where a potentially nonstationary sequence of contexts influences arms' performance.
 
+</details>
+
+<details>
+<summary><b>3. Inference in MABs. </b></summary>
+
+- One of the central tasks along this line is the evaluation of a new policy given historic/observational data which cannot be seen as i.i.d. samples. 
+- Bareinboim et al. (2015) study the issue of unobserved confounding in MAB, and consider how the observational data can be used to empower TS algorithms. 
+- Dimakopoulou et al. (2021) focus on conducting inference on the true mean of each arm based on data collected by stochastic MAB so far at each step. 
+- They incorporate the adaptively weighted doubly robust estimator into TS algorithms, which is proved to achieve the optimal regret and has outstanding empirical performances. 
+- Dimakopoulou et al. (2017) and Dimakopoulou et al. (2019) consider the case where context exists and estimate the conditional expectation of each action's reward under different contexts.
+</details>
 
 ## 2 MAB Experimental Design for $K=2$
 
@@ -163,49 +212,95 @@ We focus on $K=2$ to illustrate our ideas.
 
 ### 2.1 A Lower Bound and A Sufficient Condition
 
-In this subsection, we start with establishing an lower bound for $\left(e_{\nu}(n, \hat{\Delta})\right) \sqrt{\mathcal{R}_{\nu}(n, \pi)}$. In the following theorem, we establish an important minimax lower bound.
 
-Theorem 1. For any admissible pair $\left(\pi, \hat{\Delta}_{n}\right)$, there always exists a hard instance $\nu \in \mathcal{E}_{0}$ that $e_{\nu}\left(n, \hat{\Delta}_{n}\right) \sqrt{\mathcal{R}_{\nu}(n, \pi)}$ is no less than a constant order, i.e.,
+<details>
+<summary><b> A lower bound  </b></summary>
+ 
 
-$$
+> Theorem 1. For any admissible pair $\left(\pi, \hat{\Delta}_{n}\right)$, there always exists a hard instance $\nu \in \mathcal{E}_{0}$ that $e_{\nu}\left(n, \hat{\Delta}_{n}\right) \sqrt{\mathcal{R}_{\nu}(n, \pi)}$ is no less than a constant order, i.e.,
+> $$
 \inf _{\left(\pi, \hat{\Delta}_{n}\right)} \max _{\nu \in \mathcal{E}_{0}}\left[e_{\nu}\left(n, \hat{\Delta}_{n}\right) \sqrt{\mathcal{R}_{\nu}(n, \pi)}\right]=\Omega(1)
 $$
 
-Theorem 1 states that for any admissible pair $\left(\pi, \hat{\Delta}_{n}\right)$, there usually exists a challenging instance $\nu \in \mathcal{E}$ such that the product of estimation error and regret is lower-bounded by $n^{p}$ for some positive value of $p$. This mathematically highlights the trade-off between the two objectives. A small regret will inevitably have a large error on the ATE estimation. Roughly speaking, the expected error is almost lower bounded by the inverse of the square root of the regret in the worst case, i.e., $e_{\nu}\left(n, \hat{\Delta}_{n}\right)=\Omega\left(\frac{1}{\sqrt{\mathcal{R}_{\nu}(n, \pi)}}\right)$. In particular, since $\mathcal{R}_{\nu}(n, \pi)=\mathcal{O}(\log (n))$ for UCB and TS algorithms, no estimators can not achieve smaller error than the order $\Omega\left(\frac{1}{\sqrt{\log (n)}}\right)$ consistently over all the possible instances. Although $\log (n)$ increases with $n$, the speed is rather slow which explicitly shows the limitation of regretoptimal policies in terms of statistical power for estimating the ATE.
+- Theorem 1 states that for any admissible pair $\left(\pi, \hat{\Delta}_{n}\right)$, there usually exists a challenging instance $\nu \in \mathcal{E}$ such that the product of estimation error and regret is lower-bounded by $n^{p}$ for some positive value of $p$. 
+- This mathematically highlights the trade-off between the two objectives. 
+    - A small regret will inevitably have a large error on the ATE estimation.
+    -  Roughly speaking, the expected error is almost lower bounded by the inverse of the square root of the regret in the worst case, i.e., $e_{\nu}\left(n, \hat{\Delta}_{n}\right)=\Omega\left(\frac{1}{\sqrt{\mathcal{R}_{\nu}(n, \pi)}}\right)$. 
+    - In particular, since $\mathcal{R}_{\nu}(n, \pi)=\mathcal{O}(\log (n))$ for UCB and TS algorithms, no estimators can not achieve smaller error than the order $\Omega\left(\frac{1}{\sqrt{\log (n)}}\right)$ consistently over all the possible instances. 
+    - Although $\log (n)$ increases with $n$, the speed is rather slow which explicitly shows the limitation of regretoptimal policies in terms of statistical power for estimating the ATE.
 
-In Theorem 1, we have shown that no solution can perform better than a constant order in terms of $e_{\nu}\left(n, \hat{\Delta}_{n}\right) \sqrt{\mathcal{R}_{\nu}(n, \pi)}$ in the worst case. The following theorem states one policy is Pareto optimal if it can achieve the constant order on $e_{\nu}\left(n, \hat{\Delta}_{n}\right) \sqrt{\mathcal{R}_{\nu}(n, \pi)}$ in terms of the dependence on $n$.
+- In Theorem 1, we have shown that no solution can perform better than a constant order in terms of $e_{\nu}\left(n, \hat{\Delta}_{n}\right) \sqrt{\mathcal{R}_{\nu}(n, \pi)}$ in the worst case.
+</details>
 
-Theorem 2. An admissible pair $(\pi, \hat{\Delta})$ is Pareto optimal if
+<details>
+<summary><b> A sufficient condition  </b></summary>
+ 
 
-$$
+- The following theorem states one policy is Pareto optimal if it can achieve the constant order on $e_{\nu}\left(n, \hat{\Delta}_{n}\right) \sqrt{\mathcal{R}_{\nu}(n, \pi)}$ in terms of the dependence on $n$.
+
+> Theorem 2. An admissible pair $(\pi, \hat{\Delta})$ is Pareto optimal if
+> $$
 \max _{\nu \in \mathcal{E}_{0}}\left[e_{\nu}(n, \hat{\Delta}) \sqrt{\mathcal{R}_{\nu}(n, \pi)}\right]=\widetilde{\mathcal{O}}(1)
 $$
 
-Together with Theorem 1, if Eq. (3) is satisfied, we can directly draw the conclusion that $(\pi, \hat{\Delta})$ is optimal in terms of the metric $\max _{\nu \in \mathcal{E}_{0}}\left[e_{\nu}(n, \hat{\Delta}) \sqrt{\mathcal{R}_{\nu}(n, \pi)}\right]$. However, whether the optimality on such a metric can guarantee the Pareto optimality is what we want to answer in Theorem 2. Comparing with the definition of Pareto optimality, Eq.
+- Consider the traditional RCTs where a half of experimental units are treated and controlled, respectively. 
+    - For any $\nu \in \mathcal{E}_{0}, e_{\nu}\left(n, \hat{\Delta}_{\mathrm{RCT}}\right)=\widetilde{O}(1 / \sqrt{n})$ 
+    - and $\mathcal{R}_{\nu}\left(n, \pi_{\mathrm{RCT}}\right)=\Theta(n)$, 
+    - and thus they are Pareto optimal.
 
-(3) seems relatively more straightforwards and practical to verify. For example, consider the traditional RCTs where a half of experimental units are treated and controlled, respectively. For any $\nu \in \mathcal{E}_{0}, e_{\nu}\left(n, \hat{\Delta}_{\mathrm{RCT}}\right)=\widetilde{O}(1 / \sqrt{n})$ and $\mathcal{R}_{\nu}\left(n, \pi_{\mathrm{RCT}}\right)=\Theta(n)$, and thus they are Pareto optimal.
+</details>
 
 ### 2.2 An Algorithm and A Necessary Condition
 
-Although the RCTs are Pareto optimal, they can not be easily adapted to different levels of trade-off between the two objectives. In this subsection, we propose a flexible algorithm satisfying Eq. (3) for $K=2$ with the analysis of the regret upper bound and the error bound for inference. Then, we will prove that the condition (3) is necessary.
+
 
 ### 2.2.1 Algorithm and regret upper bound
 
-We adopt the idea of the famous EXP3 algorithm for adversarial MAB (see, e.g., Seldin et al. 2013, Auer et al. 2002a), together with the idea to force the algorithm to actively explore the suboptimal arm, to design our EXP3 with exploration (EXP3E) algorithm shown in Algorithm 1.
+- We adopt the idea of the famous EXP3 algorithm for adversarial MAB 
+    - together with the idea to force the algorithm to actively explore the suboptimal arm, 
+    - to design our EXP3 with exploration (EXP3E) algorithm shown in Algorithm 1.
 
-We first define a set of random variables $\hat{R}_{t}(a)$ for $a \in$ $\{1,2\}$ based on inverse propensity score weight (IPW) as: $\hat{R}_{t}(a)=\hat{R}_{t-1}(a)+\frac{R_{t}}{\pi_{t}(a)} \mathbb{I}_{a=A_{t}}$, which can provide an unbiased estimation of $\mu_{a}$ after being divided by $t$, i.e., $\mathbb{E}\left[\hat{R}_{t}(a)\right]=\mu_{a} t$. We also define $\hat{R}_{t}^{\max }$ as $\max _{a \in\{1,2\}} \hat{R}_{t}(a)$. One may think a more straightforward way to estimate $\mu_{a}$ is the simple sample average $\frac{\sum_{s=1}^{t} \mathbb{I}_{a=A_{t}} R_{t}}{\sum_{s=1}^{t} \mathbb{I}_{a=A_{t}}}$. However, such an estimator is neither unbiased nor asymptotically normal because whether we take action $a$ at time $t$ is highly correlated with the past history as is pointed by the recent works (see, e.g., Xu et al. 2013, Luedtke and Van Der Laan 2016, Hadad et al. 2021, Nie et al. 2018, Zhang et al. 2020). Thus, the ATE based on the simple sample average will inevitably be biased. The first phase of our algorithm is aiming at identifying the best arm with well-controlled regret. In this phase, the algorithm is adaptively polishing its decision policy to gain confidence about which arm is the optimal one, according to the estimated reward $\hat{R}_{t}(a)$. There are many ways to map $\hat{R}_{t}(a)$ into probabilities, among which a popular choice is exponential weighting as $\pi_{t}(a)=\frac{e^{\varepsilon_{t-1} \hat{R}_{t-1}(a)}}{\sum_{a \in \mathcal{A}} e^{\varepsilon_{t-1} \hat{R}_{t-1}(a)}}$. Note that the decision maker knows the exactly $\pi_{t}(a)$, different from the classical offline ATE inference. If at time $t$ there exists an arm $a$ such that $\hat{R}_{t}(a)$ is larger than the other by at least $\Omega(\sqrt{t})$, the algorithm believes $a$ is the optimal arm and eliminates the other arm. Formally, our elimination rule is $\mathcal{A}_{t+1}=\mathcal{A}_{t} \backslash\left\{a \in \mathcal{A}_{t}: \hat{R}_{t}^{\max }-\hat{R}_{t}(a)>2 \sqrt{C t}\right\}$, where $C$ is a constant defined in Algorithm 1. Note that when the first phase ends is a stopping time with respect to the history $\mathcal{H}_{t}$. We define two stopping times as $\tau(a)=$ $\max \left\{t: a \in \mathcal{A}_{t}\right\}$ for $a \in\{1,2\}$, and then the first phase ends after $\min _{a \in\{1,2\}} \tau(a)$ periods. By a careful analysis, the length of the first phase can be shown in the order $1 / \Delta^{2}$.
+- We first define a set of random variables $\hat{R}_{t}(a)$ for $a \in$ $\{1,2\}$ based on inverse propensity score weight (IPW) as: 
+    - $\hat{R}_{t}(a)=\hat{R}_{t-1}(a)+\frac{R_{t}}{\pi_{t}(a)} \mathbb{I}_{a=A_{t}}$, 
+    - which can provide an unbiased estimation of $\mu_{a}$ after being divided by $t$, 
+    - i.e., $\mathbb{E}\left[\hat{R}_{t}(a)\right]=\mu_{a} t$. 
+- We also define $\hat{R}_{t}^{\max }$ as $\max _{a \in\{1,2\}} \hat{R}_{t}(a)$. 
+    - One may think a more straightforward way to estimate $\mu_{a}$ is the simple sample average $\frac{\sum_{s=1}^{t} \mathbb{I}_{a=A_{t}} R_{t}}{\sum_{s=1}^{t} \mathbb{I}_{a=A_{t}}}$. 
+    - However, such an estimator is neither unbiased nor asymptotically normal 
+        - because whether we take action $a$ at time $t$ is highly correlated with the past history as is pointed by the recent works.
+    - Thus, the ATE based on the simple sample average will inevitably be biased. 
+    - The first phase: identifying the best arm with well-controlled regret. 
+        - In this phase, the algorithm is adaptively polishing its decision policy to gain confidence about which arm is the optimal one,
+        - according to the estimated reward $\hat{R}_{t}(a)$. 
+        - There are many ways to map $\hat{R}_{t}(a)$ into probabilities,
+            - among which a popular choice is exponential weighting as $\pi_{t}(a)=\frac{e^{\varepsilon_{t-1} \hat{R}_{t-1}(a)}}{\sum_{a \in \mathcal{A}} e^{\varepsilon_{t-1} \hat{R}_{t-1}(a)}}$. 
+        - Note that the decision maker knows the exactly $\pi_{t}(a)$,
+        - different from the classical offline ATE inference. 
+    - If at time $t$ there exists an arm $a$ such that $\hat{R}_{t}(a)$ is larger than the other by at least $\Omega(\sqrt{t})$, 
+        - the algorithm believes $a$ is the optimal arm and eliminates the other arm. 
+    - Formally, our elimination rule is 
+        - $\mathcal{A}_{t+1}=\mathcal{A}_{t} \backslash\left\{a \in \mathcal{A}_{t}: \hat{R}_{t}^{\max }-\hat{R}_{t}(a)>2 \sqrt{C t}\right\}$, 
+        - where $C$ is a constant defined in Algorithm 1. 
+    - Note that when the first phase ends is a stopping time with respect to the history $\mathcal{H}_{t}$. 
+        - We define two stopping times as $\tau(a)=$ $\max \left\{t: a \in \mathcal{A}_{t}\right\}$ for $a \in\{1,2\}$, 
+        - and then the first phase ends after $\min _{a \in\{1,2\}} \tau(a)$ periods. 
+        - By a careful analysis, the length of the first phase can be shown in the order $1 / \Delta^{2}$.
 
 ![](https://cdn.mathpix.com/cropped/2023_11_09_dcce4180771ed0085af4g-06.jpg?height=726&width=805&top_left_y=346&top_left_x=1067)
 
-After eliminating the suboptimal arm, EXP 3E operates into the second phase. The algorithm is forced to play the arm which was identified as the suboptimal one in the first phase with a carefully controlled probability $\alpha_{t}=\frac{1}{2 t^{\alpha}} . \alpha$ is an important input parameter that balances our two tasks. In the following, we will see soon that a small $\alpha$ can help the algorithm to have a more accurate estimator of $\Delta$, while sacrificing the regret.
+- After eliminating the suboptimal arm, EXP3E operates into the second phase. 
+    - The algorithm is forced to play the arm which was identified as the suboptimal one in the first phase with a carefully controlled probability $\alpha_{t}=\frac{1}{2 t^{\alpha}} $.
+    - $\alpha$ is an important input parameter that balances our two tasks. 
+        - a small $\alpha$ can help the algorithm to have a more accurate estimator of $\Delta$, 
+        - while sacrificing the regret.
 
-Theorem 3. Let Algorithm 1 runs with any given $\alpha \in[0,1]$ and $\delta=\frac{1}{2 n^{2}}$. The regret is
-
-$$
+> Theorem 3. Let Algorithm 1 runs with any given $\alpha \in[0,1]$ and $\delta=\frac{1}{2 n^{2}}$. The regret is
+> $$
 \mathcal{O}\left(\frac{\log (n)}{\Delta}+n^{1-\alpha} \Delta \log (n)\right)
 $$
 
-The regret bound in Theorem 3 decreases with $\alpha$, which is consistent with our intuition that a large $\alpha$ restricts the probability to play the suboptimal arm in the second phase. When $\alpha=1$, the regret bound in Theorem 3 becomes $\mathcal{O}\left(\frac{\log (n)}{\Delta}+\Delta \log (n)\right)$, which matches with the optimal regret bound of MAB in current literature (see, e.g., Lattimore and Szepesvári 2020) up to logarithmic factors. This means that if minimizing the accumulative regret is the only objective (i.e., ignoring the inference task), by setting $\alpha=1$, the performance of our EXP 3E is unimprovable in terms of the dependency on the learning horizon $n$. Another extreme case is when $\alpha=0$, the regret upper bound grows linearly with the learning horizon $T$. When $\alpha$ is set to be 0 , in the second phase, the exploration probability remains to be $\frac{1}{2}$. This indicates that in the second phase EXP 3E is doing random control trials. Moreover, if $|\Delta|=\Theta(1)$, Theorem 3 has an immediate corollary.
+- The regret bound in Theorem 3 decreases with $\alpha$, 
+    - which is consistent with our intuition that a large $\alpha$ restricts the probability to play the suboptimal arm in the second phase. When $\alpha=1$, the regret bound in Theorem 3 becomes $\mathcal{O}\left(\frac{\log (n)}{\Delta}+\Delta \log (n)\right)$, which matches with the optimal regret bound of MAB in current literature (see, e.g., Lattimore and Szepesvári 2020) up to logarithmic factors. This means that if minimizing the accumulative regret is the only objective (i.e., ignoring the inference task), by setting $\alpha=1$, the performance of our EXP 3E is unimprovable in terms of the dependency on the learning horizon $n$. Another extreme case is when $\alpha=0$, the regret upper bound grows linearly with the learning horizon $T$. When $\alpha$ is set to be 0 , in the second phase, the exploration probability remains to be $\frac{1}{2}$. This indicates that in the second phase EXP 3E is doing random control trials. Moreover, if $|\Delta|=\Theta(1)$, Theorem 3 has an immediate corollary.
 
 Corollary 1. With any given $\alpha \in[0,1], \delta=\frac{1}{2 n^{2}}$ and $|\Delta|=$ $\Theta(1)$, the regret of Algorithm 1 is $\widetilde{\mathcal{O}}\left(n^{1-\alpha}\right)$.
 
